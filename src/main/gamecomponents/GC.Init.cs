@@ -4,36 +4,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using GYARTE.manager;
+using GYARTE.gameObjects.entity.enemy;
 using GYARTE.gameObjects.entity;
 
-/*
-<Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\game_object\entity\enemy\Enemy.cs" />
-    <Compile Include="src\game_object\entity\enemy\Floater.cs" />
-    <Compile Include="src\game_object\entity\Entity.cs" />
-    <Compile Include="src\game_object\entity\Item.cs" />
-    <Compile Include="src\game_object\entity\Player.cs" />
-    <Compile Include="src\game_object\GameObject.cs" />
-    <Compile Include="src\game_object\platform\Platfrom.cs" />
-    <Compile Include="src\level\Level.cs" />
-    <Compile Include="src\main\Game1.cs" />
-    <Compile Include="src\main\GC.Compontents.cs" />
-    <Compile Include="src\main\GC.Init.cs" />
-    <Compile Include="src\main\GC.Managers.cs" />
-    <Compile Include="src\main\GC.Objects.cs" />
-    <Compile Include="src\main\GC.Update.cs" />
-    <Compile Include="src\main\Program.cs" />
-    <Compile Include="src\manager\CullingManager.cs" />
-    <Compile Include="src\manager\InputManager.cs" />
-    <Compile Include="src\manager\DrawManager.cs" />
-    <Compile Include="src\manager\LevelManager.cs" />
-    <Compile Include="src\manager\SettingsManager.cs" />
-    <Compile Include="src\manager\WindowManager.cs" />
-    <Compile Include="src\menu\IMenuItem.cs" />
-    <Compile Include="src\menu\Menu.cs" />
-    <Compile Include="src\menu\MenuManager.cs" />
-    <Compile Include="src\misc\General.cs" />
-*/
 namespace GYARTE.main.gameComponents
 {
     public static partial class GameComponents
@@ -44,7 +17,7 @@ namespace GYARTE.main.gameComponents
 
             GameState = new GameState();
             GameState = GameState.PauseMenu;
-            // TODO: Add your initialization logic here
+
             LoadContent(content);
 
 
@@ -55,13 +28,13 @@ namespace GYARTE.main.gameComponents
 
             DrawManager = new DrawManager(gDevice, WindowConfig);
 
-            Player1 = new Player((Texture2D)SpriteTable["PlayerSprite"], new Vector2(400, 400), 400, 100, isAffectedByGravityDirection: true, spriteSize: new Vector2(60, 99));
+            Player1 = new Player(SpriteTable["EnemySprite"], new Vector2(400, 400), Settings.PlayerSpeed, 100,  true, true, new Vector2(80, 116), true);
 
-            Enemy1 = new Goblin((Texture2D)SpriteTable["EnemySprite"], new Vector2(600, 200), Settings.EnemySpeed, 100);
+            //Enemy1 = new Goblin(SpriteTable["RedSus"], new Vector2(600, 200), Settings.EnemySpeed, 100, true, false, new Vector2(94, 122), true);
 
-            //Enemy2 = new Floater((Texture2D) SpriteTable["EyeSprite"], new Vector2( 300, 500), 0, 100, (Texture2D) SpriteTable["ShotSprite"], isAffectedByGravity: false);
-            Enemies.Add(Enemy1);
-            //Enemies.Add(Enemy2);
+            Enemy2 = new Floater(SpriteTable["EyeSprite"], new Vector2(200, 200), 0, 100, SpriteTable["ShotSprite"]);
+            //Enemies.Add(Enemy1);
+            Enemies.Add(Enemy2);
 
 
 
@@ -85,10 +58,10 @@ namespace GYARTE.main.gameComponents
             string IMGDIR = "./assets/img";
             string FONTDIR = "./assets/font";
             SpriteTable = new Dictionary<string, Texture2D>()
-            { // {"-----------", Content.Load<Texture2D>(@$"{IMGDIR/FONTDIR}/-----------")},
+            { // {"-----------", content.Load<Texture2D/SpriteFont>(@$"{IMGDIR/FONTDIR}/-----------")}
                 {"PlayerSprite", content.Load<Texture2D>(@$"{IMGDIR}/player_sprite_sheet")},
                 {"PlatformSprite", content.Load<Texture2D>(@$"{IMGDIR}/platform_sprite_sheet")},
-                {"EnemySprite", content.Load<Texture2D>(@$"{IMGDIR}/enemy")},
+                {"EnemySprite", content.Load<Texture2D>(@$"{IMGDIR}/jubngkook_spritesheet")}, 
                 {"BackgroundSprite", content.Load<Texture2D>(@$"{IMGDIR}/background")},
                 {"CoinSprite", content.Load<Texture2D>(@$"{IMGDIR}/dogecoin")},
                 {"EyeSprite", content.Load<Texture2D>(@$"{IMGDIR}/eye")},
@@ -97,13 +70,20 @@ namespace GYARTE.main.gameComponents
                 {"HealthBarOutline", content.Load<Texture2D>(@$"{IMGDIR}/healthbar_outline")},
                 {"PauseMenuSprite", content.Load<Texture2D>(@$"{IMGDIR}/menu")},
                 {"ShadingSprite", content.Load<Texture2D>(@$"{IMGDIR}/shading")},
-                {"MainMenuBackground", content.Load<Texture2D>(@$"{IMGDIR}/mainmenu")}
+                {"MainMenuBackground", content.Load<Texture2D>(@$"{IMGDIR}/mainmenu")},
+                {"RedSus", content.Load<Texture2D>(@$"{IMGDIR}/amogus_sprietsheet")}
             };
 
             FontTable = new Dictionary<string, SpriteFont>()
             {
                 {"Arial16Bold", content.Load<SpriteFont>(@$"{FONTDIR}/Arial_16_Bold")}
             };
+
+            /*
+                jungkook:   (80, 116)
+                amogus:     (94, 122)
+                player:     (60, 99)
+            */
         }
     }
 }

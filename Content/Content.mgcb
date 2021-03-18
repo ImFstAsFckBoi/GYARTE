@@ -20,6 +20,18 @@
 /processorParam:TextureFormat=Compressed
 /build:assets/font/Arial_16_Bold.spritefont
 
+#begin assets/img/amogus_sprietsheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:assets/img/amogus_sprietsheet.png
+
 #begin assets/img/background.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -115,6 +127,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:assets/img/healthbar_outline.png
+
+#begin assets/img/jubngkook_spritesheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:assets/img/jubngkook_spritesheet.png
 
 #begin assets/img/mainmenu.jpg
 /importer:TextureImporter

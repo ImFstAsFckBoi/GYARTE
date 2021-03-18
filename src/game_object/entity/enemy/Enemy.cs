@@ -1,16 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-
-namespace GYARTE.gameObjects.entity
+namespace GYARTE.gameObjects.entity.enemy
 {
 
 
     public abstract class Enemy : LivingEntity
     {
         protected Enemy(Texture2D sprite, Vector2 startPosition, float speed, int startHp, bool isAffectedByGravity = true,
-            bool isAffectedByGravityDirection = false)
-            : base(sprite, startPosition, startHp, speed, isAffectedByGravity, isAffectedByGravityDirection) { }
+            bool isAffectedByGravityDirection = false, Vector2? spriteSize = null, bool animator = false)
+            : base(sprite, startPosition, startHp, speed, isAffectedByGravity, isAffectedByGravityDirection, spriteSize, animator) { }
 
         protected override void Attack(LivingEntity target, GameTime gameTime = null)
         {
@@ -30,8 +29,8 @@ namespace GYARTE.gameObjects.entity
 
     public class Goblin : Enemy
     {
-        public Goblin(Texture2D sprite, Vector2 startPosition, float speed, int startHp, bool isAffectedByGravity = true, 
-            bool isAffectedByGravityDirection = false) 
-            : base(sprite, startPosition, speed, startHp, isAffectedByGravity, isAffectedByGravityDirection) {}
+        public Goblin(Texture2D sprite, Vector2 startPosition, float speed, int startHp, bool isAffectedByGravity = true,
+            bool isAffectedByGravityDirection = false, Vector2? spriteSize = null, bool animator = false)
+            : base(sprite, startPosition, speed, startHp, isAffectedByGravity, isAffectedByGravityDirection, spriteSize, animator) { }
     }
 }

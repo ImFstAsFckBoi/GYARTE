@@ -16,118 +16,67 @@ namespace GYARTE.gameObjects.entity
         public bool IsAffectedByGravity;
         public bool IsAffectedByGravityDirection;
         public Vector2 Direction;
-        public int WalkCycle;
         public float Speed;
+
+        private Animator? _animator;
 
         protected Entity(Texture2D sprite,
             Vector2 startPosition,
             float speed,
             bool isAffectedByGravity = true,
-            bool isAffectedByGravityDirection = false, Vector2? spriteSize = null)
+            bool isAffectedByGravityDirection = false, Vector2? spriteSize = null, bool animator = false)
             : base(sprite, startPosition, spriteSize)
         {
             Speed = speed;
             IsAffectedByGravity = isAffectedByGravity;
             IsAffectedByGravityDirection = isAffectedByGravityDirection;
             Direction = new Vector2(1, 1);
-            WalkCycle = 0;
-        }
-
-        protected Rectangle GetSubSpriteRect()
-        {
-            int x = (int)Direction.X == 1 ? 0 : Sprite.Width - (int)SpriteSize.X;
-            int y = (int)Direction.Y == 1 ? 0 : Sprite.Height / 2;
-            int w = (int)SpriteSize.X;
-            int h = (int)SpriteSize.Y;
-
-            if (Velocity.X != 0 && Velocity.Y == 0)
+            if (animator)
             {
-                WalkCycle += 1;
-
-                if (WalkCycle < 5)
+                if (!spriteSize.HasValue)
                 {
-                    x += (int)SpriteSize.X * (int)Direction.X;
+                    throw new ArgumentNullException("BTS");
                 }
-                else if (WalkCycle < 10)
+                else 
                 {
-                    x += 2 * (int)SpriteSize.X * (int)Direction.X;
-                }
-                else
-                {
-                    WalkCycle = 0;
+                    _animator = new Animator(this, Sprite, spriteSize.Value);
                 }
             }
-
-            return new Rectangle(x, y, w, h);
         }
-
 
         public virtual void Update(float g, int gDirection, GameTime gameTime, IEnumerable<Platform> platforms)
         {
             Direction.Y = IsAffectedByGravityDirection ? gDirection : 1;
 
-            MoveAnCheckPlatfroms(g, gDirection, gameTime, platforms);
+            MoveAnCheckPlatforms(g, gDirection, gameTime, platforms);
 
             base.Update();
-        }
 
+        }
+        
         public virtual void Update(float g, int gDirection, GameTime gameTime, IEnumerable<Platform> platforms, GameObject target)
         {
             Direction.Y = IsAffectedByGravityDirection ? gDirection : 1;
-            //Move(g, gDirection, gameTime, target);
 
-            //if (platforms != null)
-            //CheckPlatforms(platforms);
-
-            Velocity.Y = (IsAffectedByGravityDirection ? gDirection : 1) * (IsAffectedByGravity ? g : 0);
-
-            Position.X += (Velocity.X * (float)gameTime.ElapsedGameTime.TotalSeconds);
-            /*foreach(var p in platforms)
-            {
-                if (!Rect.Intersects(p.Rect)) return;
-                if (Position.X < p.Rect.Center.X)
-                {
-                    Position.X = p.Rect.X - Width;
-                    Velocity.X = 0;
-                }
-                else if (Position.X > p.Rect.Center.X)
-                {
-                    Position.X = p.Rect.Right;
-                    Velocity.X = 0;
-                }
-            }*/
-            
-            Position.Y += (Velocity.Y * (float)gameTime.ElapsedGameTime.TotalSeconds);
-            foreach (var p in platforms)
-            {
-                if (Rect.Intersects(p.Rect))
-                {
-                    if (Position.Y < p.Rect.Center.Y)
-                    {
-                        Position.Y = p.Rect.Y - Height;
-                        Velocity.Y = 0;
-                    }
-                    else if (Position.Y > p.Rect.Center.Y)
-                    {
-                        Position.Y = p.Rect.Bottom;
-                        Velocity.Y = 0;
-                    }
-                }
-
-            }
+            MoveAnCheckPlatforms(g, gDirection, gameTime, platforms, target);
 
             base.Update();
         }
-
-        private void MoveAnCheckPlatfroms(float g, int gDirection, GameTime gameTime, IEnumerable<Platform> platforms, GameObject? target = null)
+        
+        private void MoveAnCheckPlatforms(float g, int gDirection, GameTime gameTime, IEnumerable<Platform> platforms, GameObject? target = null)
         {
             if (target != null)
+            {
                 Velocity.X = Speed * (!(new Rectangle((int)Position.X, 0, Rect.Width, GameComponents.WindowConfig.WindowHeight)
                     .Intersects(target.Rect)) ?
                     target.Position.X < Position.X ?
                         -1
                         : 1
                     : 0);
+
+                Direction.X = target.Position.X < Position.X ? 0 : 1;
+            }
+                
 
             Velocity.Y = (IsAffectedByGravityDirection ? gDirection : 1) * (IsAffectedByGravity ? g : 0);
 
@@ -149,9 +98,7 @@ namespace GYARTE.gameObjects.entity
 
 
         }
-
-
-
+        
         protected virtual void CheckStandPlatformX(Platform platform)
         {
             if (Rect.Intersects(platform.Rect))
@@ -169,6 +116,7 @@ namespace GYARTE.gameObjects.entity
             }
 
         }
+        
         protected virtual void CheckStandPlatformY(Platform platform)
         {
             if (Rect.Intersects(platform.Rect))
@@ -185,14 +133,29 @@ namespace GYARTE.gameObjects.entity
                 }
             }
         }
+
+        public override void Draw()
+        {
+            if (_animator == null)
+            {
+                base.Draw();
+            }
+            else 
+            {
+                _animator.Draw();
+            }
+        }
     }
 
 
-    public class LivingEntity : Entity
+    public abstract class LivingEntity : Entity
     {
         public float Hp;
 
-        protected LivingEntity(Texture2D sprite, Vector2 startPosition, float startHp, float speed, bool isAffectedByGravity = true, bool isAffectedByGravityDirection = false, Vector2? spriteSize = null) : base(sprite, startPosition, speed, isAffectedByGravity, isAffectedByGravityDirection, spriteSize)
+        protected LivingEntity(Texture2D sprite, Vector2 startPosition, float startHp, 
+        float speed, bool isAffectedByGravity = true, bool isAffectedByGravityDirection = false, 
+        Vector2? spriteSize = null, bool animator = false) 
+        : base(sprite, startPosition, speed, isAffectedByGravity, isAffectedByGravityDirection, spriteSize, animator)
         {
             Hp = startHp;
         }

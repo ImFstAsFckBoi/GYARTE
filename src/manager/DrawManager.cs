@@ -11,7 +11,7 @@ namespace GYARTE.manager
 {
     public interface INewDrawCall
     {
-        public void Sprite(Vector2 position,
+        void Sprite(Vector2 position,
             Texture2D texture,
             Rectangle? destinationRectangle = null,
             Rectangle? sourceRectangle = null,
@@ -23,7 +23,7 @@ namespace GYARTE.manager
             float layerDepth = 0,
             int priority = 100);
         
-        public void Text( SpriteFont spriteFont,
+        void Text( SpriteFont spriteFont,
             string text,
             Vector2 position,
             Color? color = null,
@@ -52,7 +52,7 @@ namespace GYARTE.manager
             Rectangle? sourceRectangle = null, Vector2? origin = null, float rotation = 0, Vector2? scale = null,
             Color? color = null, SpriteEffects effects = SpriteEffects.None, float layerDepth = 0, int priority = 100)
         {
-            _drawQueue.Add(new SpriteDrawCall(position, texture, destinationRectangle, sourceRectangle, origin, rotation, scale, color, effects, layerDepth, priority));
+            _drawQueue.Add(new SpriteDrawCall(position, texture, sourceRectangle, color, destinationRectangle, rotation, origin,  scale,  effects, layerDepth, priority));
         }
 
         void INewDrawCall.Text(SpriteFont spriteFont, string text, Vector2 position, Color? color = null, int priority = 50, TextDrawCall.Alignment alignment = TextDrawCall.Alignment.Center)
@@ -68,7 +68,7 @@ namespace GYARTE.manager
             _drawQueue.Clear();
         }
     }
-    internal class DrawQueue : List<DrawCall> //TODO FUCK YOU TODO: STRUCT INTE CLAS BRUH
+    internal class DrawQueue : List<DrawCall>
     {
         private readonly DrawManager _manager;
         
@@ -91,8 +91,7 @@ namespace GYARTE.manager
             
             _manager.SpriteBatch.Begin();
             
-            if (
-                PreDrawExecutions != null)
+            if (PreDrawExecutions != null)
                 foreach (var i in 
                 PreDrawExecutions)
                     i.Invoke();
@@ -110,22 +109,9 @@ namespace GYARTE.manager
                     i.Invoke();
 
             _manager.SpriteBatch.End();
-            
             _manager.GraphicsDevice.SetRenderTarget(null);
-            
             _manager.SpriteBatch.Begin();
-            
-
-            _manager.SpriteBatch.Draw(
-                _manager.WindowConfiguration.TargetResolution, 
-            
-                new Rectangle(
-                    0, 
-                    0, 
-                    _manager.WindowConfiguration.WindowWidth, 
-                    _manager.WindowConfiguration.WindowHeight),
-
-                Color.White);
+            _manager.SpriteBatch.Draw(_manager.WindowConfiguration.TargetResolution, new Rectangle(0, 0, _manager.WindowConfiguration.WindowWidth, _manager.WindowConfiguration.WindowHeight), Color.White);
             _manager.SpriteBatch.End();
         }
     }
@@ -175,12 +161,12 @@ namespace GYARTE.manager
         public SpriteDrawCall(
             Vector2 position,
             Texture2D texture,
-            Rectangle? destinationRectangle = null,
             Rectangle? sourceRectangle = null,
-            Vector2? origin = null,
-            float rotation = 0,
-            Vector2? scale = null,
             Color? color = null,
+            Rectangle? destinationRectangle = null,
+            float rotation = 0,
+            Vector2? origin = null,
+            Vector2? scale = null,
             SpriteEffects effects = SpriteEffects.None,
             float layerDepth = 0,
             int priority = 100)
@@ -199,10 +185,35 @@ namespace GYARTE.manager
         
         internal override void SubmitDraw(SpriteBatch spriteBatch)
         {   
-            Rectangle __destinationRectangle = _destinationRectangle == null ? new Rectangle((int)Position.X, (int)Position.Y, (int) (_scale == null? 1 : _scale.Value.X) * (_sourceRectangle == null? _texture.Bounds.Width : _sourceRectangle.Value.Width), (int) (_scale == null? 1 : _scale.Value.X) * (_sourceRectangle == null? _texture.Bounds.Height : _sourceRectangle.Value.Height)) : (Rectangle) _destinationRectangle;
-            // CURSED LINJE 
-            Color __color = _color == null ? Color.White : (Color) _color;
-            spriteBatch.Draw(_texture, __destinationRectangle, _sourceRectangle, __color);
+            Rectangle destRect = !_destinationRectangle.HasValue              // Förlåt gud...
+            ? new Rectangle(
+                (int) Position.X, 
+                (int) Position.Y, 
+                (int) (!_scale.HasValue
+                    ? 1 
+                    : _scale.Value.X) * (!_sourceRectangle.HasValue
+                        ? _texture.Bounds.Width 
+                        : _sourceRectangle.Value.Width),
+                (int) (!_scale.HasValue
+                    ? 1 
+                    : _scale.Value.X) * (!_sourceRectangle.HasValue
+                        ? _texture.Bounds.Height 
+                        : _sourceRectangle.Value.Height)) 
+            : _destinationRectangle.Value;
+
+
+            Color color = _color ?? Color.White;
+            Vector2 origin = _origin ?? Vector2.Zero;
+
+            spriteBatch.Draw(
+                _texture, 
+                destRect,
+                _sourceRectangle, 
+                color, 
+                _rotation, 
+                origin, 
+                _effects, 
+                _layerDepth);
             
 
             /*

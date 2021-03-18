@@ -14,8 +14,8 @@ namespace GYARTE.gameObjects.entity
     {
 
         public Player(Texture2D sprite, Vector2 startPosition, float speed, int startHp, bool isAffectedByGravity = true,
-            bool isAffectedByGravityDirection = false, Vector2? spriteSize = null) 
-            : base(sprite, startPosition, startHp, speed, isAffectedByGravity, isAffectedByGravityDirection, spriteSize)
+            bool isAffectedByGravityDirection = false, Vector2? spriteSize = null, bool animator = false) 
+            : base(sprite, startPosition, startHp, speed, isAffectedByGravity, isAffectedByGravityDirection, spriteSize, animator)
         {
            
         }
@@ -26,13 +26,6 @@ namespace GYARTE.gameObjects.entity
             base.Update(g, gDirection, gameTime, platforms);
             
             DrawHealthbar(new Vector2(5, 5), new Vector2(1.5f, 1.5f));
-        }
-    
-        public override void Draw()
-        {
-            Rectangle subSpriteRect = GetSubSpriteRect();
-            
-            GameComponents.DrawManager.NewDrawCall.Sprite(Position, Sprite, priority: 50, sourceRectangle: subSpriteRect);
         }
 
         public void DrawHealthbar(Vector2 position, Vector2 scale)

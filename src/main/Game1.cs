@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using GYARTE.main.gameComponents;
-
 namespace GYARTE.main
 {
     public class Game1 : Game
     {
         public GraphicsDeviceManager Graphics;
-        public static bool SCF = false;
+        public static bool SCF = false; //TODO: BYE!
         
         public Game1()
         {
@@ -65,12 +64,6 @@ namespace GYARTE.main
 
         protected override void Draw(GameTime gameTime)
         {
-            /*
-            GraphicsDevice.Clear(Color.Aquamarine);
-            GameComponents.DrawManager.SpriteBatch.Begin();
-            GameComponents.DrawManager.SpriteBatch.Draw(GameComponents.SpriteTable["EnemySprite"], Vector2.Zero, Color.White);
-            GameComponents.DrawManager.SpriteBatch.End();
-            */
             GameComponents.DrawManager.DrawQueuedCalls();
 
             base.Draw(gameTime);

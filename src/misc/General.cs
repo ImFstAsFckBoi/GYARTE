@@ -14,26 +14,26 @@ namespace GYARTE.misc
     
     public class Shot : GameObject
     {
-        private readonly int _damage;
+        public readonly int Damage;
         private Vector2 _vector;
         private readonly LivingEntity _target;
         public double TTL;
-        public double Birth;
+        public double TimeOfBirth;
         
-        public double Age(GameTime gameTime) => gameTime.TotalGameTime.TotalMilliseconds - Birth;
+        public double Age(GameTime gameTime) => gameTime.TotalGameTime.TotalMilliseconds - TimeOfBirth;
 
         public Shot(Texture2D sprite, Vector2 startPosition, int damage, double ttlms, GameTime gameTime, LivingEntity target, Vector2? spriteSize = null) : base(sprite, startPosition, spriteSize)
         {
-            _damage = damage;
+            Damage = damage;
             _target = target;
             TTL = ttlms;
-            Birth = gameTime.TotalGameTime.TotalMilliseconds;
+            TimeOfBirth = gameTime.TotalGameTime.TotalMilliseconds;
             
             double alpha = Math.Atan2(Position.X - target.Position.X, Position.Y - target.Position.Y) + Math.PI;
             _vector = new Vector2((float) Math.Sin(alpha), (float) Math.Cos(alpha));
         }
 
-        public override  void Draw()
+        public override void Draw()
         {
             GameComponents.DrawManager.NewDrawCall.Sprite(Position, Sprite, priority: 50);
         }
@@ -54,7 +54,6 @@ namespace GYARTE.misc
         public bool HitScan()
         {
             if (!Rect.Intersects(_target.Rect)) return false;
-            _target.Hp -= _damage;
             return true;
         } 
         

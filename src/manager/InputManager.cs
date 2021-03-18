@@ -12,7 +12,7 @@ namespace GYARTE.manager
     public static class InputManager
     {
         private static KeyboardState _keyboardState;
-        private static readonly Dictionary<Keys, bool> HasBeenPressed = new Dictionary<Keys, bool>();
+        private static Dictionary<Keys, bool> HasBeenPressed = new Dictionary<Keys, bool>();
 
         private static void PressedOnce(Keys key, Execution execution)
         {
@@ -57,7 +57,9 @@ namespace GYARTE.manager
                 GameComponents.GameState = GameComponents.GameState == GameState.Run ? GameState.PauseMenu : GameState.Run;
                 player.Velocity.X = 0; 
             });
-            
+
+
+
             /*
              * _keyboardState.IsKeyDown(Keys.Space) ||
              * _keyboardState.IsKeyDown(Keys.Up) ||
@@ -73,7 +75,14 @@ namespace GYARTE.manager
                     {
                         GameComponents.GDirection *= (int) player.Velocity.Y == 0 ? -1 : 1;
                     });
-                
+
+                    player.Speed = _keyboardState.IsKeyDown(Keys.LeftShift) 
+                        ? settings.PlayerSpeed * 2 
+                        : _keyboardState.IsKeyDown(Keys.LeftAlt) 
+                            ? settings.PlayerSpeed * 1/2 
+                            : settings.PlayerSpeed;
+                    
+
                     player.Direction.X = _keyboardState.IsKeyDown(Keys.A) || _keyboardState.IsKeyDown(Keys.Left) 
                         ? -1
                         : player.Direction.X = _keyboardState.IsKeyDown(Keys.D) || _keyboardState.IsKeyDown(Keys.Right) 

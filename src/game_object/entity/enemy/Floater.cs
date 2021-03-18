@@ -22,19 +22,21 @@ namespace GYARTE.gameObjects.entity.enemy
             _shotSprite = shotSprite;
         }
 
-        public override void Update(float g, int gDirection, GameTime gameTime, IEnumerable<Platform> platforms,
-            LivingEntity target)
+        public override void Update(float g, int gDirection, GameTime gameTime, IEnumerable<Platform> platforms, LivingEntity target)
         {
             foreach (var i in _shots.ToList())
             {
                 if (i.Position.X < 0 ||
                     i.Position.Y < 0 ||
-                    i.Position.Y > GameComponents.WindowConfig.WindowHeight ||
-                    i.Position.X > GameComponents.WindowConfig.WindowWidth ||
+                    i.Position.Y > 1280 ||
+                    i.Position.X > 1280 ||
                     i.HitScan() ||
                     i.Age(gameTime) > i.TTL)
-                    
+                {
+                    target.Hp -= i.Damage;
                     _shots.Remove(i);
+                } 
+                    
                 
                 if (i.Rect.Intersects(Rect))
                     Hp = 0;
