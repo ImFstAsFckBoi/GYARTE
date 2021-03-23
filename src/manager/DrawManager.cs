@@ -185,6 +185,8 @@ namespace GYARTE.manager
         
         internal override void SubmitDraw(SpriteBatch spriteBatch)
         {   
+
+
             Rectangle destRect = !_destinationRectangle.HasValue              // Förlåt gud...
             ? new Rectangle(
                 (int) Position.X, 
@@ -214,21 +216,6 @@ namespace GYARTE.manager
                 origin, 
                 _effects, 
                 _layerDepth);
-            
-
-            /*
-            spriteBatch.Draw(
-                _texture,
-                Position, _destinationRectangle,
-                _sourceRectangle,
-                _origin,
-                _rotation,
-                _scale,
-                _color,
-                _effects,
-                _layerDepth);
-            */
-
         }
     }
 

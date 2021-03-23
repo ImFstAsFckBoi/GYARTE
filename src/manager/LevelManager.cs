@@ -1,4 +1,6 @@
-﻿using System;
+﻿using System.Security.AccessControl;
+using System.Diagnostics;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
@@ -66,7 +68,7 @@ namespace GYARTE.manager
                 WriteNewLevel(curLevelID);
                 lvl = ReadNewLevel(curLevelID);
             }
-            catch (FileNotFoundException)
+            catch (System.Exception)
             {
                 WriteNewLevel(curLevelID);
                 lvl = ReadNewLevel(curLevelID);
@@ -85,20 +87,21 @@ namespace GYARTE.manager
                 sw.Write(rand.Next(0, 2));
             }
             */
-            sw.Write("1111001111000000000000000000000000000000000000000000000000000000000000000000000000000000001111001111");
+            string EChex = Convert.ToString(rand.Next(16), 16);
+            string ECbin = Convert.ToString(Convert.ToInt32(EChex, 16), 2).PadLeft(4, '0');
+            sw.Write($"{lvlID.X}.{lvlID.Y}.{EChex}.1111{(ECbin[2] == '0'? "00" : "11")}1111{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}1111{(ECbin[3] == '0'? "00" : "11")}1111");
             sw.Close();
         }
 
         private Level ReadNewLevel(Vector2 lvlID)
         {
             StreamReader sr = new StreamReader(@$"./levels/.{lvlID.X}_{lvlID.Y}.room");
-            char[] buffer = new char[100];
-            sr.ReadBlock(buffer, 0, 100);
-            Level lvl = new Level(buffer, _spriteSheet, lvlID);
+            string[] room = sr.ReadLine().Split('.');
+            System.Diagnostics.Debug.WriteLine(Convert.ToString(Convert.ToInt32(room[2], 16), 2).PadLeft(4, '0'));
+            Level lvl = new Level(room[3], _spriteSheet, lvlID);
             sr.Close();
             return lvl;
         }
-
         private void StageNewLevel(string code, Player p) 
         {
             Level prev = CurrentLevel;

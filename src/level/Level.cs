@@ -11,6 +11,7 @@ namespace GYARTE
     public struct Level
     {
         public Vector2 LevelID;
+        public Level(string layoutCode, Texture2D spriteSheet, Vector2 lvlID) : this(layoutCode.ToCharArray(), spriteSheet, lvlID) {}
         public Level(char[] layoutCode, Texture2D spriteSheet, Vector2 lvlID)
         {
             if (layoutCode.Length != 100)

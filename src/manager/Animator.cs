@@ -5,12 +5,6 @@ using GYARTE.main.gameComponents;
 
 namespace GYARTE.manager
 {
-    public enum AnimationMode
-    {
-        WalkCycle,
-        Idling
-    }
-
     public delegate Rectangle GetSubSprite();
     public class Animator
     {
@@ -28,10 +22,10 @@ namespace GYARTE.manager
 
         private Rectangle GetSubSpriteRect()
         {
-            int x = (int)_direction.X == 1 ? 0 : _spriteSheet.Width - (int)_spriteSize.X;
-            int y = (int)_direction.Y == 1 ? 0 : _spriteSheet.Height / 2;
-            int w = (int)_spriteSize.X;
-            int h = (int)_spriteSize.Y;
+            int x = (int) _direction.X == 1 ? 0 : _spriteSheet.Width - (int)_spriteSize.X;
+            int y = (int) _direction.Y == 1 ? 0 : _spriteSheet.Height / 2;
+            int w = (int) _spriteSize.X;
+            int h = (int) _spriteSize.Y;
 
             if (_entity.Velocity.X != 0 && _entity.Velocity.Y == 0)
             {
