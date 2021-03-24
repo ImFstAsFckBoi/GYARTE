@@ -28,15 +28,16 @@ namespace GYARTE.main.gameComponents
 
             DrawManager = new DrawManager(gDevice, WindowConfig);
 
-            Player1 = new Player(SpriteTable["EnemySprite"], new Vector2(400, 400), Settings.PlayerSpeed, 100,  true, true, new Vector2(80, 116), true);
+            Player1 = new Player(SpriteTable["EnemySprite"], new Vector2(600, 400), Settings.PlayerSpeed, 100,  true, true, new Vector2(80, 116), true);
+            for (int i = 0; i < 10; i++)
+            {
+                Enemies.Add(new Goblin(SpriteTable["RedSus"], new Vector2(600 + i*10, 200), Settings.EnemySpeed, 100, true, false, new Vector2(94, 122), true));
+            }
+               
 
-            //Enemy1 = new Goblin(SpriteTable["RedSus"], new Vector2(600, 200), Settings.EnemySpeed, 100, true, false, new Vector2(94, 122), true);
-
-            Enemy2 = new Floater(SpriteTable["EyeSprite"], new Vector2(200, 200), 0, 100, SpriteTable["ShotSprite"]);
+            //Enemy2 = new Floater(SpriteTable["EyeSprite"], new Vector2(200, 200), 0, 100, SpriteTable["ShotSprite"]);
             //Enemies.Add(Enemy1);
-            Enemies.Add(Enemy2);
-
-
+            //Enemies.Add(Enemy2);
 
             //Coin = new DynamicItem((Texture2D) SpriteTable["CoinSprite"], PlatformGrid.Grid(3, 2), true, target => target.Hp += 100);
             //Items.Add(Coin);

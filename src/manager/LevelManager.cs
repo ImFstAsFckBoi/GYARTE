@@ -1,4 +1,5 @@
-﻿using System.Security.AccessControl;
+﻿using Microsoft.Win32.SafeHandles;
+using System.Security.AccessControl;
 using System.Diagnostics;
 using System;
 using System.Collections.Generic;
@@ -81,18 +82,74 @@ namespace GYARTE.manager
         {
             Random rand = new Random();
             StreamWriter sw = new StreamWriter(@$"./levels/.{lvlID.X}_{lvlID.Y}.room");
-            /*
-            for (int _ = 0; _ < 100; _++)
+            
+            string ECbin = "";
+
+            if (lvlID == Vector2.Zero)
             {
-                sw.Write(rand.Next(0, 2));
+                ECbin = "0000";
             }
-            */
-            string EChex = Convert.ToString(rand.Next(16), 16);
-            string ECbin = Convert.ToString(Convert.ToInt32(EChex, 16), 2).PadLeft(4, '0');
-            sw.Write($"{lvlID.X}.{lvlID.Y}.{EChex}.1111{(ECbin[2] == '0'? "00" : "11")}1111{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}1111{(ECbin[3] == '0'? "00" : "11")}1111");
+            else 
+            {
+                ECbin += File.Exists(@$"./levels/.{lvlID.X + 1}_{lvlID.Y}.room")    //PONTUS HAR STORA BEN
+                    ? GetEC(new Vector2(lvlID.X + 1, lvlID.Y), "LEFT")
+                    : null 
+                ?? rand.Next(0, 2).ToString();
+
+                ECbin += File.Exists(@$"./levels/.{lvlID.X - 1}_{lvlID.Y}.room") 
+                    ? GetEC(new Vector2(lvlID.X - 1, lvlID.Y), "RIGHT")
+                    : null 
+                ?? rand.Next(0, 2).ToString();
+
+                ECbin += File.Exists(@$"./levels/.{lvlID.X}_{lvlID.Y + 1}.room") 
+                    ? GetEC(new Vector2(lvlID.X, lvlID.Y + 1), "BOTTOM") 
+                    : null
+                ?? rand.Next(0, 2).ToString();
+
+                ECbin += File.Exists(@$"./levels/.{lvlID.X}_{lvlID.Y - 1}.room") 
+                    ? GetEC(new Vector2(lvlID.X, lvlID.Y - 1), "TOP")
+                    : null 
+                ?? rand.Next(0, 2).ToString();
+            }
+            string EChex = Convert.ToString(Convert.ToInt16(ECbin.ToString(), 2), 16);
+
+            sw.Write($"{lvlID.X}.{lvlID.Y}.{EChex}.1111{(ECbin[2] == '0'? "00" : "11")}"
+            +$"1111{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000"
+            +$"{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000"
+            +$"{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}{ECbin[1]}00000000{ECbin[0]}1111{(ECbin[3] == '0'? "00" : "11")}1111");
             sw.Close();
         }
 
+        private string GetEC(Vector2 lvlID, string direction)
+        {
+            if (direction.ToUpper() != "TOP" && direction.ToUpper() != "BOTTOM" && direction.ToUpper() != "LEFT" && direction.ToUpper() != "RIGHT")
+            {
+                throw new ArgumentException("Direction must be TOP, BOTTOM, LEFT or RIGHT");
+            }
+
+            StreamReader sr = new StreamReader(@$"./levels/.{lvlID.X}_{lvlID.Y}.room");
+            string room = sr.ReadLine();
+            string EChex = room.Split('.')[2];
+            string ECbin = Convert.ToString(Convert.ToInt16(EChex, 16), 2).PadLeft(4, '0');
+
+            switch(direction.ToUpper())
+            {
+                case "RIGHT":
+                    return ECbin[0].ToString();
+
+                 case "LEFT":
+                    return ECbin[1].ToString();
+
+                case "TOP":
+                    return ECbin[2].ToString();
+                
+                case "BOTTOM":
+                    return ECbin[3].ToString();
+                
+                default:
+                    throw new Exception();
+            }
+        }
         private Level ReadNewLevel(Vector2 lvlID)
         {
             StreamReader sr = new StreamReader(@$"./levels/.{lvlID.X}_{lvlID.Y}.room");

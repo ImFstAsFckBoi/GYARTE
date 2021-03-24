@@ -11,8 +11,8 @@ namespace GYARTE.gameObjects
         public float Width => SpriteSize.X;
         public float Height => SpriteSize.Y;
         public Rectangle Rect => new Rectangle(
-            (int)Position.X,
-            (int)Position.Y,
+            (int) Position.X,
+            (int) Position.Y,
             (int) Width,
             (int) Height);
         
