@@ -72,7 +72,9 @@ namespace GYARTE.main.gameComponents
                 {"PauseMenuSprite", content.Load<Texture2D>(@$"{IMGDIR}/menu")},
                 {"ShadingSprite", content.Load<Texture2D>(@$"{IMGDIR}/shading")},
                 {"MainMenuBackground", content.Load<Texture2D>(@$"{IMGDIR}/mainmenu")},
-                {"RedSus", content.Load<Texture2D>(@$"{IMGDIR}/amogus_sprietsheet")}
+                {"RedSus", content.Load<Texture2D>(@$"{IMGDIR}/amogus_sprietsheet")},
+                {"MapBack", content.Load<Texture2D>(@$"{IMGDIR}/mapback")},
+                {"MapSheet", content.Load<Texture2D>(@$"{IMGDIR}/mapspritesheet")}
             };
 
             FontTable = new Dictionary<string, SpriteFont>()

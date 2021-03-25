@@ -9,34 +9,36 @@ namespace GYARTE.main.gameComponents
     {
         public static void Run(GameTime gameTime)
         {
+            MapManager.Draw();
+
             DrawManager.NewDrawCall.Sprite(Vector2.Zero, SpriteTable["BackgroundSprite"], priority: 150);
 
-                Player1.Update(GlobalG, GDirection, gameTime, LevelManager.CurrentLevel.Platforms, Enemy1);
+            Player1.Update(GlobalG, GDirection, gameTime, LevelManager.CurrentLevel.Platforms, Enemy1);
 
-                LevelManager.Update(Player1);
-                
-                foreach (var i in Enemies)
-                    i.Update(GlobalG, GDirection, gameTime, LevelManager.CurrentLevel.Platforms, Player1);
-        
-        
-                foreach (var i in Items)
-                {
-                    i.Update(GlobalG, GDirection, gameTime, LevelManager.CurrentLevel.Platforms, Player1);
-                }
-        
-                CullingManager.HpCulling(Enemies.ToList()); 
-                CullingManager.HpCulling(Player1);
-                CullingManager.ItemCulling(Items);
-                
-                InputManager.InputCheck(Player1, GameState, Settings);
+            LevelManager.Update(Player1);
+            
+            foreach (var i in Enemies)
+                i.Update(GlobalG, GDirection, gameTime, LevelManager.CurrentLevel.Platforms, Player1);
+    
+    
+            foreach (var i in Items)
+            {
+                i.Update(GlobalG, GDirection, gameTime, LevelManager.CurrentLevel.Platforms, Player1);
+            }
+    
+            CullingManager.HpCulling(Enemies.ToList()); 
+            CullingManager.HpCulling(Player1);
+            CullingManager.ItemCulling(Items);
+            
+            InputManager.InputCheck(Player1, GameState, Settings);
 
-                DrawManager.NewDrawCall.Sprite(
-                    new Vector2(
-                        Player1.Rect.X - 3000 / 2,
-                        Player1.Rect.Y - 1688 / 2),
-                    SpriteTable["ShadingSprite"], priority: 0);
+            DrawManager.NewDrawCall.Sprite(
+                new Vector2(
+                    Player1.Rect.X - 3000 / 2,
+                    Player1.Rect.Y - 1688 / 2),
+                SpriteTable["ShadingSprite"], priority: 0);
 
-                Diagnostics(gameTime);
+            Diagnostics(gameTime);
         }
         public static void PauseMenu(GameTime gameTime)
         {
