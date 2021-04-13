@@ -36,7 +36,7 @@ namespace GYARTE.manager
         public void Update(Player p)
         {
             CurrentLevel.UpdateLevel();
-
+            MapManager.Draw(CurrentLevel.LevelID);
             if (p.Rect.Center.X < 0)
             {
                 StageNewLevel("LEFT", p);
@@ -74,7 +74,7 @@ namespace GYARTE.manager
                 WriteNewLevel(curLevelID);
                 lvl = ReadNewLevel(curLevelID);
             }
-           
+            
             return lvl;
         }
 
@@ -157,6 +157,8 @@ namespace GYARTE.manager
             System.Diagnostics.Debug.WriteLine(Convert.ToString(Convert.ToInt32(room[2], 16), 2).PadLeft(4, '0'));
             Level lvl = new Level(room[3], _spriteSheet, lvlID);
             sr.Close();
+
+            try {MapManager.LoadedRooms.Add($"{lvlID.X}.{lvlID.Y}", room[2]);} catch (ArgumentException){}
             return lvl;
         }
         private void StageNewLevel(string code, Player p) 

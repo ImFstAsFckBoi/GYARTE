@@ -9,7 +9,7 @@ namespace GYARTE.main.gameComponents
     {
         public static void Run(GameTime gameTime)
         {
-            MapManager.Draw();
+            ;
 
             DrawManager.NewDrawCall.Sprite(Vector2.Zero, SpriteTable["BackgroundSprite"], priority: 150);
 
