@@ -29,7 +29,7 @@ namespace GYARTE.main.gameComponents
             CullingManager.HpCulling(Player1);
             CullingManager.ItemCulling(Items);
             
-            InputManager.InputCheck(Player1, GameState, Settings);
+            InputManager.Update(Player1, GameState, Settings);
 
             DrawManager.NewDrawCall.Sprite(
                 new Vector2(
@@ -60,7 +60,7 @@ namespace GYARTE.main.gameComponents
             DrawManager.NewDrawCall.Sprite(Vector2.Zero, SpriteTable["PauseMenuSprite"], priority: -1);
             GameComponents.MenuManager.Update();
 
-            InputManager.InputCheck(Player1, GameState, Settings);
+            InputManager.Update(Player1, GameState, Settings);
 
             DrawManager.NewDrawCall.Sprite(
                 new Vector2(

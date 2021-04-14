@@ -12,47 +12,21 @@ namespace GYARTE.manager
     public static class InputManager
     {
         private static KeyboardState _keyboardState;
+        
         private static Dictionary<Keys, bool> HasBeenPressed = new Dictionary<Keys, bool>();
+        
         public static void WhenPressed(Keys key, Execution execution)
         {
             if (_keyboardState.IsKeyDown(key))
                 execution.Invoke();
         }
+        
         public static void WhenPressedOnce(Keys key, Execution execution)
         {
             HasBeenPressed[key] = IfPressedOnce(key, execution);
         }
-        private static bool IfPressedOnce(Keys key, Execution execution)
-        {
-            if (_keyboardState.IsKeyDown(key) && !HasBeenPressed[key])
-            {
-                execution.Invoke();
-                
-                return true;
-            }
-            
-            return _keyboardState.IsKeyDown(key) && HasBeenPressed[key];
-        }
-        private static bool IfPressedOnce(List<Keys> keys, Execution execution)
-        {
-            throw new NotImplementedException();
-            /*
-            var key = keys.Find(key =>
-            {
-                return _keyboardState.IsKeyDown(key);
-            });
-            
-            if (_keyboardState.IsKeyDown(key) && !HasBeenPressed[key])
-            {
-                execution.Invoke();
-                
-                return true;
-            }
-            return _keyboardState.IsKeyDown(key) && HasBeenPressed[key];
-            */
-        }
-        
-        public static void InputCheck(Player player, GameState gameState, Settings settings)
+
+        public static void Update(Player player, GameState gameState, Settings settings)
         {
             _keyboardState = Keyboard.GetState();
             
@@ -98,6 +72,18 @@ namespace GYARTE.manager
                             : 0f;
                     break;
             }
+        }
+
+        private static bool IfPressedOnce(Keys key, Execution execution)
+        {
+            if (_keyboardState.IsKeyDown(key) && !HasBeenPressed[key])
+            {
+                execution.Invoke();
+                
+                return true;
+            }
+            
+            return _keyboardState.IsKeyDown(key) && HasBeenPressed[key];
         }
     }
 }

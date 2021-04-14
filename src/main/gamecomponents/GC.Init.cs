@@ -1,4 +1,6 @@
-﻿using System;
+﻿using System.Net.Mime;
+using System.Diagnostics;
+using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -31,6 +33,21 @@ namespace GYARTE.main.gameComponents
                     { new MenuItem("RETURN", () => 
                         {
                             GameState = GameState.MainMenu; 
+                        })},
+
+                    { new MenuItem("Amogus", () => 
+                        {                            
+                            Player1 = new Player(SpriteTable["RedSus"], Player1.Position, Settings.PlayerSpeed, 100,  true, true, new Vector2(94, 122), true);
+                        })},
+
+                    { new MenuItem("Kooky", () => 
+                        {                            
+                            Player1 = new Player(SpriteTable["EnemySprite"], Player1.Position, Settings.PlayerSpeed, 100,  true, true, new Vector2(80, 116), true);
+                        })},
+
+                    { new MenuItem("CUM", () => 
+                        {
+                            Environment.Exit(0);
                         })}
                     
                 }), 

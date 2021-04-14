@@ -26,7 +26,7 @@ namespace GYARTE.menu
             {
                 GameComponents.DrawManager.NewDrawCall.Text(
                     GameComponents.FontTable["Arial16Bold"], 
-                    m.Name, new Vector2(10, 70 + MenuItems.IndexOf(m) * 20), 
+                    m.Name, new Vector2(10, 80 + MenuItems.IndexOf(m) * 40), 
                     color: MenuItems.IndexOf(m) == sel? Color.Red : Color.White,
                     priority: -10, 
                     alignment: TextDrawCall.Alignment.TopLeft);
