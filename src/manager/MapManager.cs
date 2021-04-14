@@ -11,32 +11,29 @@ namespace GYARTE.manager
         
         public static void Draw(Vector2 currentLvlID)
         {
+            return;
             //1238
             //string ex = "0.0.A.0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789";
-          
+
             GameComponents.DrawManager.NewDrawCall.Sprite(new Vector2(1110, 10), GameComponents.SpriteTable["MapBack"], scale: new Vector2(3, 3), priority: -10);
             
             for (int i=0; i<3; i++)
             {
                 for (int j=0; j<3; j++)
                 {
-                    try 
-                    {
-                        int y = 0;
+                    if (!LoadedRooms.ContainsKey($"{currentLvlID.X - 1 + j}.{currentLvlID.Y + 1 - i}")) return;
+                    
+                    int y = 0;
 
-                        int x = Convert.ToInt16(LoadedRooms[$"{currentLvlID.X - 1 + i}.{currentLvlID.Y + 1 - j}"], 16);
-                        for (int _ = x; x > 4; x -= 4) { y++; }
+                    int x = Convert.ToInt16(LoadedRooms[$"{currentLvlID.X - 1 + i}.{currentLvlID.Y + 1 - j}"], 16);
+                    for (int _ = x; x > 4; x -= 4) { y++; }
 
-                        GameComponents.DrawManager.NewDrawCall.Sprite(
-                        new Vector2(1114 + 32*i, 14 +32*j), 
-                        GameComponents.SpriteTable["MapSheet"], 
-                        sourceRectangle: new Rectangle(x * 8, y * 8, 8, 8), 
-                        scale: new Vector2(4, 4), priority: -11);
-                    } 
-                    catch (KeyNotFoundException)
-                    {
-                        continue;
-                    }
+                    GameComponents.DrawManager.NewDrawCall.Sprite(
+                    new Vector2(1114 + 32*i, 14 +32*j), 
+                    GameComponents.SpriteTable["MapSheet"], 
+                    sourceRectangle: new Rectangle(x * 8, y * 8, 8, 8), 
+                    scale: new Vector2(4, 4), priority: -11);
+                
                     
                 }
             }

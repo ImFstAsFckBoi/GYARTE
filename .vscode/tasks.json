@@ -34,6 +34,19 @@
                 "/consoleloggerparameters:NoSummary"
             ], 
             "problemMatcher":"$msCompile"
+        },  {
+            "label":"MGCB", 
+            "type":"shell", 
+            "command":"mgcb-editor.exe ./**/Content.mgcb", 
+            "group":"build", 
+            "presentation": {
+                "echo":false, 
+                "reveal":"silent", 
+                "focus":false, 
+                "panel":"shared", 
+                "showReuseMessage":false, 
+                "clear":true, 
+            }, 
         }
     ]
 }

@@ -13,8 +13,12 @@ namespace GYARTE.manager
     {
         private static KeyboardState _keyboardState;
         private static Dictionary<Keys, bool> HasBeenPressed = new Dictionary<Keys, bool>();
-
-        private static void PressedOnce(Keys key, Execution execution)
+        public static void WhenPressed(Keys key, Execution execution)
+        {
+            if (_keyboardState.IsKeyDown(key))
+                execution.Invoke();
+        }
+        public static void WhenPressedOnce(Keys key, Execution execution)
         {
             HasBeenPressed[key] = IfPressedOnce(key, execution);
         }
@@ -29,7 +33,7 @@ namespace GYARTE.manager
             
             return _keyboardState.IsKeyDown(key) && HasBeenPressed[key];
         }
-        internal static bool IfPressedOnce(List<Keys> keys, Execution execution)
+        private static bool IfPressedOnce(List<Keys> keys, Execution execution)
         {
             throw new NotImplementedException();
             /*
@@ -52,13 +56,11 @@ namespace GYARTE.manager
         {
             _keyboardState = Keyboard.GetState();
             
-            PressedOnce(Keys.Escape, () =>
+            WhenPressedOnce(Keys.Escape, () =>
             {
                 GameComponents.GameState = GameComponents.GameState == GameState.Run ? GameState.PauseMenu : GameState.Run;
                 player.Velocity.X = 0; 
             });
-
-
 
             /*
              * _keyboardState.IsKeyDown(Keys.Space) ||
@@ -71,7 +73,7 @@ namespace GYARTE.manager
             switch (gameState) 
             {
                 case GameState.Run:
-                    PressedOnce(Keys.Space, () =>
+                    WhenPressedOnce(Keys.Space, () =>
                     {
                         GameComponents.GDirection *= (int) player.Velocity.Y == 0 ? -1 : 1;
                     });

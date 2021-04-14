@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using GYARTE.manager;
 using GYARTE.gameObjects.entity.enemy;
 using GYARTE.gameObjects.entity;
-
+using GYARTE.menu;
 namespace GYARTE.main.gameComponents
 {
     public static partial class GameComponents
@@ -14,12 +14,29 @@ namespace GYARTE.main.gameComponents
         public static void Initialize(GraphicsDevice gDevice, GraphicsDeviceManager gManager, ContentManager content)
         {
             var rng = new Random();
-
             GameState = new GameState();
             GameState = GameState.PauseMenu;
 
             LoadContent(content);
+            MenuManager = new MenuManager();
+            
+            MenuManager.AddMenu(
+                new Menu("PAUSE", new List<MenuItem>()
+                {
+                    {new MenuItem("RESUME", () => 
+                        {
+                            GameState = GameState.Run; 
+                        })},
 
+                    { new MenuItem("RETURN", () => 
+                        {
+                            GameState = GameState.MainMenu; 
+                        })}
+                    
+                }), 
+                GameState.PauseMenu);
+            
+            
 
             LevelManager = new LevelManager((Texture2D)SpriteTable["PlatformSprite"], Vector2.Zero);
 

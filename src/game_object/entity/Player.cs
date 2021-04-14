@@ -8,8 +8,6 @@ using GYARTE.manager;
 
 namespace GYARTE.gameObjects.entity
 {
-    
-    
     public class Player : LivingEntity
     {
 

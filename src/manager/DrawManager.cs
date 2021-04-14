@@ -187,8 +187,8 @@ namespace GYARTE.manager
         {   
 
 
-            Rectangle destRect = !_destinationRectangle.HasValue              // Förlåt gud...
-            ? new Rectangle(
+            Rectangle destRect = _destinationRectangle ?? 
+            new Rectangle(
                 (int) Position.X, 
                 (int) Position.Y, 
                 (int) (!_scale.HasValue
@@ -200,8 +200,7 @@ namespace GYARTE.manager
                     ? 1 
                     : _scale.Value.X) * (!_sourceRectangle.HasValue
                         ? _texture.Bounds.Height 
-                        : _sourceRectangle.Value.Height)) 
-            : _destinationRectangle.Value;
+                        : _sourceRectangle.Value.Height));
 
 
             Color color = _color ?? Color.White;

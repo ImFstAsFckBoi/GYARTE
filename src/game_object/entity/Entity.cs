@@ -48,22 +48,21 @@ namespace GYARTE.gameObjects.entity
         {
             Direction.Y = IsAffectedByGravityDirection ? gDirection : 1;
 
-            MoveAnCheckPlatforms(g, gDirection, gameTime, platforms);
+            MoveAndCheckPlatforms(g, gDirection, gameTime, platforms);
 
             base.Update();
-
         }
         
         public virtual void Update(float g, int gDirection, GameTime gameTime, IEnumerable<Platform> platforms, GameObject target)
         {
             Direction.Y = IsAffectedByGravityDirection ? gDirection : 1;
 
-            MoveAnCheckPlatforms(g, gDirection, gameTime, platforms, target);
+            MoveAndCheckPlatforms(g, gDirection, gameTime, platforms, target);
 
             base.Update();
         }
         
-        private void MoveAnCheckPlatforms(float g, int gDirection, GameTime gameTime, IEnumerable<Platform> platforms, GameObject? target = null)
+        private void MoveAndCheckPlatforms(float g, int gDirection, GameTime gameTime, IEnumerable<Platform> platforms, GameObject? target = null)
         {
             if (target != null)
             {
@@ -137,13 +136,9 @@ namespace GYARTE.gameObjects.entity
         public override void Draw()
         {
             if (_animator == null)
-            {
                 base.Draw();
-            }
             else 
-            {
                 _animator.Draw();
-            }
         }
     }
 

@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GYARTE.gameObjects.platform;
 using GYARTE.main.gameComponents;
-using GYARTE.manager;
 
 namespace GYARTE.gameObjects.entity
 {
@@ -12,10 +11,9 @@ namespace GYARTE.gameObjects.entity
 
     public interface IItem
     {
-        public bool IsConsumable { get; }
-        public bool IsConsumed { get; set; }
-        public ItemExecution? TouchAction { get; }
-        
+        bool IsConsumable { get; }
+        bool IsConsumed { get; set; }
+        ItemExecution? TouchAction { get; }
     }
     
 

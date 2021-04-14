@@ -9,7 +9,6 @@ namespace GYARTE.main.gameComponents
     {
         public static void Run(GameTime gameTime)
         {
-            ;
 
             DrawManager.NewDrawCall.Sprite(Vector2.Zero, SpriteTable["BackgroundSprite"], priority: 150);
 
@@ -59,6 +58,7 @@ namespace GYARTE.main.gameComponents
             }
                     
             DrawManager.NewDrawCall.Sprite(Vector2.Zero, SpriteTable["PauseMenuSprite"], priority: -1);
+            GameComponents.MenuManager.Update();
 
             InputManager.InputCheck(Player1, GameState, Settings);
 

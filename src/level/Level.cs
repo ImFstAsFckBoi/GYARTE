@@ -11,6 +11,7 @@ namespace GYARTE
     public struct Level
     {
         public Vector2 LevelID;
+        public readonly List<Platform> Platforms;
         public Level(string layoutCode, Texture2D spriteSheet, Vector2 lvlID) : this(layoutCode.ToCharArray(), spriteSheet, lvlID) {}
         public Level(char[] layoutCode, Texture2D spriteSheet, Vector2 lvlID)
         {
@@ -147,7 +148,5 @@ namespace GYARTE
                 i.Draw();
             }
         }
-        
-        public readonly List<Platform> Platforms;
     }
 }
