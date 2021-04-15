@@ -58,7 +58,7 @@ namespace GYARTE.main.gameComponents
             }
                     
             DrawManager.NewDrawCall.Sprite(Vector2.Zero, SpriteTable["PauseMenuSprite"], priority: -1);
-            GameComponents.MenuManager.Update();
+            MenuManager.Update();
 
             InputManager.Update(Player1, GameState, Settings);
 
@@ -72,6 +72,8 @@ namespace GYARTE.main.gameComponents
         public static void MainMenu(GameTime gameTime)
         {
             DrawManager.NewDrawCall.Sprite(Vector2.Zero, SpriteTable["MainMenuBackground"], priority: 100);
+            InputManager.Update(Player1, GameState, Settings);
+            GameComponents.MenuManager.Update();
         }
         private static void Diagnostics(GameTime gameTime)
         {
@@ -82,7 +84,7 @@ namespace GYARTE.main.gameComponents
             {
                 DrawManager.NewDrawCall.Text(FontTable["Arial16Bold"],"FPS: " + (int) (1/gameTime.ElapsedGameTime.TotalSeconds), new Vector2(5, 40), priority: -1, alignment: TextDrawCall.Alignment.TopLeft);
                 DrawManager.NewDrawCall.Text(FontTable["Arial16Bold"],"TPF: " + (int) (gameTime.ElapsedGameTime.TotalMilliseconds) + " ms", new Vector2(5, 60), priority: -1, alignment: TextDrawCall.Alignment.TopLeft);
-                DrawManager.NewDrawCall.Text(FontTable["Arial16Bold"], "ROOM: " + (int)(LevelManager.CurrentLevel.LevelID.X) + " - " + LevelManager.CurrentLevel.LevelID.Y, new Vector2(5, 80), priority: -1, alignment: TextDrawCall.Alignment.TopLeft);
+                DrawManager.NewDrawCall.Text(FontTable["Arial16Bold"], "ROOM: " + (int)(LevelManager.CurrentLevel.LevelID.X) + " | " + LevelManager.CurrentLevel.LevelID.Y, new Vector2(5, 80), priority: -1, alignment: TextDrawCall.Alignment.TopLeft);
                 DrawManager.NewDrawCall.Text(FontTable["Arial16Bold"], "X: " + (int) Player1.Position.X + " Y: " + (int) Player1.Position.Y, new Vector2(5, 100), priority: -1, alignment: TextDrawCall.Alignment.TopLeft);
             }
             catch (DivideByZeroException)

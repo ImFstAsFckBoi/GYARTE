@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
+using GYARTE.main.gameComponents;
+using System.Collections.Generic;
+using GYARTE.gameObjects.platform;
+using System;
 namespace GYARTE.gameObjects.entity.enemy
 {
 
@@ -16,14 +19,19 @@ namespace GYARTE.gameObjects.entity.enemy
             if (!Rect.Intersects(target.Rect))
                 return;
 
-            int direction = target.Position.X < Position.X ? -1 : 1;
 
             if ((int)target.Velocity.Y != 0)
                 return; //TODO FIX
 
             target.Hp -= 20;
 
-            target.Position += new Vector2(100 * direction, -100);
+            target.Position += new Vector2(100 * Direction.X, -100);
+        }
+
+        public override void Update(float g, int gDirection, GameTime gameTime, IEnumerable<Platform> platforms, GameObject target)
+        {
+            //Direction = new Vector2(Velocity.X/Math.Abs(Velocity.X), IsAffectedByGravityDirection? GameComponents.GDirection : 1);
+            base.Update(g, gDirection, gameTime, platforms, target);
         }
     }
 

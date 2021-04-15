@@ -15,7 +15,7 @@ namespace GYARTE.gameObjects.entity
         public Vector2 Velocity;
         public bool IsAffectedByGravity;
         public bool IsAffectedByGravityDirection;
-        public Vector2 Direction;
+        public Vector2 Direction; // 1 | -1
         public float Speed;
 
         private Animator? _animator;
@@ -73,7 +73,7 @@ namespace GYARTE.gameObjects.entity
                         : 1
                     : 0);
 
-                Direction.X = target.Position.X < Position.X ? 0 : 1;
+                Direction.X = target.Position.X < Position.X ? -1 : 1;
             }
                 
 

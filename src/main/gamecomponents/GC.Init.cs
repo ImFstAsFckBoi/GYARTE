@@ -17,7 +17,6 @@ namespace GYARTE.main.gameComponents
         {
             var rng = new Random();
             GameState = new GameState();
-            GameState = GameState.PauseMenu;
 
             LoadContent(content);
             MenuManager = new MenuManager();
@@ -43,16 +42,22 @@ namespace GYARTE.main.gameComponents
                     { new MenuItem("Kooky", () => 
                         {                            
                             Player1 = new Player(SpriteTable["EnemySprite"], Player1.Position, Settings.PlayerSpeed, 100,  true, true, new Vector2(80, 116), true);
-                        })},
-
-                    { new MenuItem("CUM", () => 
-                        {
-                            Environment.Exit(0);
                         })}
-                    
                 }), 
                 GameState.PauseMenu);
             
+            MenuManager.AddMenu(new Menu("MAIN MENU", new List<MenuItem>()
+            {
+                { new MenuItem("PLAY", () => 
+                {
+                    GameState = GameState.Run;
+                })},
+
+                 { new MenuItem("QUIT", () => {
+                     Environment.Exit(0);
+                 })}
+            }),
+            GameState.MainMenu);
             
 
             LevelManager = new LevelManager((Texture2D)SpriteTable["PlatformSprite"], Vector2.Zero);

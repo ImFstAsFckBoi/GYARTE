@@ -5,7 +5,6 @@ namespace GYARTE.main
     public class Game1 : Game
     {
         public GraphicsDeviceManager Graphics;
-        public static bool SCF = false; //TODO: BYE!
         
         public Game1()
         {
@@ -50,14 +49,6 @@ namespace GYARTE.main
                     GameComponents.MainMenu(gameTime);
                     break;
             }
-
-            if (SCF) //FIX
-            {
-                GameComponents.WindowConfig.UpdateFullscreen(GameComponents.Settings, GraphicsDevice, Graphics);
-                SCF = false;
-                System.Diagnostics.Debug.WriteLine("SCF!!");
-                System.Diagnostics.Debug.WriteLine(GameComponents.Settings.Fullscreen);
-            } 
             
             base.Update(gameTime);
         }
