@@ -1,0 +1,9 @@
+ {
+  "Fullscreen":0, 
+  "WindowX":1280, 
+  "WindowY":720, 
+  "PlayerSpeed":600, 
+  "EnemySpeed":200, 
+  "GravitySpeed":1000, 
+  "ShowDiagnostics":1
+}

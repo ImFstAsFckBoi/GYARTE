@@ -32,7 +32,7 @@ namespace GYARTE.gameObjects.entity
 
         public void Update(LivingEntity target)
         {
-            if (Rect.Intersects(target.Rect) && IsConsumable && !IsConsumed)
+            if (Hitbox.Intersects(target.Hitbox) && IsConsumable && !IsConsumed)
             {
                 IsConsumed = true;
                 TouchAction?.Invoke(target);
@@ -65,7 +65,7 @@ namespace GYARTE.gameObjects.entity
         public void Update(float g, int gDirection, GameTime gameTime, IEnumerable<Platform> platforms, LivingEntity target)
         {
 
-            if (Rect.Intersects(target.Rect) && IsConsumable && !IsConsumed)
+            if (Hitbox.Intersects(target.Hitbox) && IsConsumable && !IsConsumed)
             {
                 IsConsumed = true;
                 TouchAction?.Invoke(target);

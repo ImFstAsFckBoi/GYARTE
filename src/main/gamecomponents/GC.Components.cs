@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
-using GYARTE.menu;
+using GYARTE.manager;
+
 namespace GYARTE.main.gameComponents
 {
     public enum GameState
@@ -22,6 +18,7 @@ namespace GYARTE.main.gameComponents
         public static int GDirection = 1;
         public static Dictionary<string, Texture2D> SpriteTable;
         public static Dictionary<string, SpriteFont> FontTable;
-        public static MenuManager MenuManager;
+        public static Settings Settings;
+        public static WindowConfiguration WindowConfig;
     }
 }

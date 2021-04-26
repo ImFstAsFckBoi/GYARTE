@@ -4,16 +4,16 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GYARTE.gameObjects.platform;
-
-
+using GYARTE.gameObjects.entity.enemy;
+using GYARTE.misc;
 namespace GYARTE
 {
     public struct Level
     {
         public Vector2 LevelID;
-        public readonly List<Platform> Platforms;
-        public Level(string layoutCode, Texture2D spriteSheet, Vector2 lvlID) : this(layoutCode.ToCharArray(), spriteSheet, lvlID) {}
-        public Level(char[] layoutCode, Texture2D spriteSheet, Vector2 lvlID)
+        public List<Platform> Platforms;
+        public List<Enemy> Enemies;
+        public Level(string layoutCode, Texture2D spriteSheet, Vector2 lvlID, List<Enemy> enemies)
         {
             if (layoutCode.Length != 100)
                 throw new ArgumentOutOfRangeException();
@@ -23,7 +23,8 @@ namespace GYARTE
 
             LevelID = lvlID;
             Platforms = new List<Platform>();
-            
+            Enemies = new List<Enemy>(enemies);
+
             for (int i = 0; i < 100; i++)
             {
                 char bit = layoutCode[i];

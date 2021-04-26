@@ -12,13 +12,13 @@ namespace GYARTE.manager
         public static void HpCulling(List<LivingEntity> entities)
         {
             foreach (var i in entities.ToList())
-                if (i.Hp <= 0)
+                if (i.HP <= 0)
                     entities.Remove(i); 
         }
         
         public static void HpCulling(LivingEntity entity) //TODO: -_-
         {
-            if (entity.Hp <= 0)
+            if (entity.HP <= 0)
                 if (entity is Player) 
                     Environment.Exit(0);
         }
@@ -44,7 +44,7 @@ namespace GYARTE.manager
         public static void HpCulling(List<Enemy> entities)
         {
             foreach (var i in entities.ToList())
-                if (i.Hp <= 0)
+                if (i.HP <= 0)
                     entities.Remove(i);
         }
     }

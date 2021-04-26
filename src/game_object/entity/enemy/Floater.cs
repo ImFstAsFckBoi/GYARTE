@@ -33,13 +33,13 @@ namespace GYARTE.gameObjects.entity.enemy
                     i.HitScan() ||
                     i.Age(gameTime) > i.TTL)
                 {
-                    target.Hp -= i.Damage;
+                    target.HP -= i.Damage;
                     _shots.Remove(i);
                 } 
                     
                 
-                if (i.Rect.Intersects(Rect))
-                    Hp = 0;
+                if (i.Hitbox.Intersects(Hitbox))
+                    HP = 0;
 
                 i.Update(gameTime);
             }

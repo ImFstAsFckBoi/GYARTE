@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using GYARTE.misc;
 using GYARTE.main.gameComponents;
-using GYARTE.manager;
 using System.Linq;
+using GYARTE.manager;
+using GYARTE.misc;
 namespace GYARTE.menu
 {
     public class Menu

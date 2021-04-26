@@ -1,89 +1,130 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using GYARTE.gameObjects.entity;
-using GYARTE.main.gameComponents;
 using GYARTE.misc;
-
 
 namespace GYARTE.manager
 {
-    public static class InputManager
+    public enum Buttons
     {
-        private static KeyboardState _keyboardState;
+        LeftButton,
+        MiddleButton,
+        RightBUtton
+    }
+    public interface IKeyboard
+    {
+        void WhenPressed(Keys key, Execution execution, Execution executionIfNotPressed = null);
+
+        void WhenPressedOnce(Keys key, Execution execution);
+    }
+
+    public interface IMouse
+    {
+        Point Position { get; }
+        void WhenPressed(Buttons button, Execution execution, Execution executionIfNotPressed = null);
+
+        void WhenPressedOnce(Buttons button, Execution execution);
+    }
+
+    public class InputManager : IKeyboard, IMouse
+    {
+        public IKeyboard KeyboardIO => this;
+        public IMouse MouseIO => this;
+
+        private KeyboardState _keyboardState = Keyboard.GetState();
+        private MouseState _mouseState = Mouse.GetState();
+
+        private static Dictionary<Keys, bool> _K_hasBeenPressed = new Dictionary<Keys, bool>();
+        private static Dictionary<Buttons, bool> _M_hasBeenPressed = new Dictionary<Buttons, bool>();
         
-        private static Dictionary<Keys, bool> HasBeenPressed = new Dictionary<Keys, bool>();
-        
-        public static void WhenPressed(Keys key, Execution execution)
+        public InputManager()
+        {
+
+        }
+
+        void IKeyboard.WhenPressed(Keys key, Execution execution, Execution executionIfNotPressed)
         {
             if (_keyboardState.IsKeyDown(key))
                 execution.Invoke();
-        }
+            else if(executionIfNotPressed != null)
+                executionIfNotPressed.Invoke();
+        }   
         
-        public static void WhenPressedOnce(Keys key, Execution execution)
+        void IKeyboard.WhenPressedOnce(Keys key, Execution execution)
         {
-            HasBeenPressed[key] = IfPressedOnce(key, execution);
+            _K_hasBeenPressed[key] = IfPressedOnce(key, execution);
         }
 
-        public static void Update(Player player, GameState gameState, Settings settings)
+        void IMouse.WhenPressed(Buttons button, Execution execution, Execution executionIfNotPressed)
         {
-            _keyboardState = Keyboard.GetState();
-            
-            WhenPressedOnce(Keys.Escape, () =>
+            bool btnPrsed = false;
+            switch(button)
             {
-                GameComponents.GameState = GameComponents.GameState == GameState.Run ? GameState.PauseMenu : GameState.Run;
-                player.Velocity.X = 0; 
-            });
-
-            /*
-             * _keyboardState.IsKeyDown(Keys.Space) ||
-             * _keyboardState.IsKeyDown(Keys.Up) ||
-             * _keyboardState.IsKeyDown(Keys.Down) || 
-             * _keyboardState.IsKeyDown(Keys.S) ||
-             * _keyboardState.IsKeyDown(Keys.W)
-             */
-
-            switch (gameState) 
-            {
-                case GameState.Run:
-                    WhenPressedOnce(Keys.Space, () =>
-                    {
-                        GameComponents.GDirection *= (int) player.Velocity.Y == 0 ? -1 : 1;
-                    });
-
-                    player.Speed = _keyboardState.IsKeyDown(Keys.LeftShift) 
-                        ? settings.PlayerSpeed * 2 
-                        : _keyboardState.IsKeyDown(Keys.LeftAlt) 
-                            ? settings.PlayerSpeed * 1/2 
-                            : settings.PlayerSpeed;
-                    
-
-                    player.Direction.X = _keyboardState.IsKeyDown(Keys.A) || _keyboardState.IsKeyDown(Keys.Left) 
-                        ? -1
-                        : player.Direction.X = _keyboardState.IsKeyDown(Keys.D) || _keyboardState.IsKeyDown(Keys.Right) 
-                            ? 1
-                            : player.Direction.X;
-
-                    player.Velocity.X = _keyboardState.IsKeyDown(Keys.A) || _keyboardState.IsKeyDown(Keys.Left) 
-                        ? -player.Speed
-                        : player.Velocity.X = _keyboardState.IsKeyDown(Keys.D) || _keyboardState.IsKeyDown(Keys.Right) 
-                            ? player.Speed
-                            : 0f;
+                case Buttons.LeftButton:
+                    btnPrsed = _mouseState.LeftButton == ButtonState.Pressed;
+                    break;
+                case Buttons.MiddleButton:
+                    btnPrsed = _mouseState.MiddleButton == ButtonState.Pressed;
+                    break;
+                case Buttons.RightBUtton:
+                    btnPrsed = _mouseState.RightButton == ButtonState.Pressed;
                     break;
             }
+
+            if(btnPrsed)
+                execution.Invoke();
+            else if(executionIfNotPressed != null)
+                executionIfNotPressed.Invoke();
+        }
+        
+        void IMouse.WhenPressedOnce(Buttons button, Execution execution)
+        {
+            _M_hasBeenPressed[button] = IfPressedOnce(button, execution);
         }
 
-        private static bool IfPressedOnce(Keys key, Execution execution)
+        Point IMouse.Position => _mouseState.Position;
+        public void Update()
         {
-            if (_keyboardState.IsKeyDown(key) && !HasBeenPressed[key])
+            _keyboardState = Keyboard.GetState();
+            _mouseState = Mouse.GetState();
+        }
+
+        private bool IfPressedOnce(Keys key, Execution execution)
+        {
+            if (_keyboardState.IsKeyDown(key) && !_K_hasBeenPressed[key])
             {
                 execution.Invoke();
                 
                 return true;
             }
             
-            return _keyboardState.IsKeyDown(key) && HasBeenPressed[key];
+            return _keyboardState.IsKeyDown(key) && _K_hasBeenPressed[key];
+        }
+
+        private bool IfPressedOnce(Buttons button, Execution execution)
+        {
+            bool btnPrsed = false;
+            switch(button)
+            {
+                case Buttons.LeftButton:
+                    btnPrsed = _mouseState.LeftButton == ButtonState.Pressed;
+                    break;
+                case Buttons.MiddleButton:
+                    btnPrsed = _mouseState.MiddleButton == ButtonState.Pressed;
+                    break;
+                case Buttons.RightBUtton:
+                    btnPrsed = _mouseState.RightButton == ButtonState.Pressed;
+                    break;
+            }
+
+            if (btnPrsed && !_M_hasBeenPressed[button])
+            {
+                execution.Invoke();
+                
+                return true;
+            }
+            
+            return btnPrsed && _M_hasBeenPressed[button];
         }
     }
 }

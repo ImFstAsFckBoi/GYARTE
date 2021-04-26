@@ -1,13 +1,12 @@
 ﻿#nullable enable
-#pragma warning disable 1066
-#pragma warning disable 618
+
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using GYARTE.misc;
 
-namespace GYARTE.manager 
+namespace GYARTE.manager
 {
     public interface INewDrawCall
     {
@@ -48,14 +47,14 @@ namespace GYARTE.manager
             _drawQueue = new DrawQueue(this);
         }
 
-        void INewDrawCall.Sprite(Vector2 position, Texture2D texture, Rectangle? destinationRectangle = null,
-            Rectangle? sourceRectangle = null, Vector2? origin = null, float rotation = 0, Vector2? scale = null,
-            Color? color = null, SpriteEffects effects = SpriteEffects.None, float layerDepth = 0, int priority = 100)
+        void INewDrawCall.Sprite(Vector2 position, Texture2D texture, Rectangle? destinationRectangle,
+            Rectangle? sourceRectangle, Vector2? origin, float rotation, Vector2? scale,
+            Color? color, SpriteEffects effects, float layerDepth, int priority)
         {
             _drawQueue.Add(new SpriteDrawCall(position, texture, sourceRectangle, color, destinationRectangle, rotation, origin,  scale,  effects, layerDepth, priority));
         }
 
-        void INewDrawCall.Text(SpriteFont spriteFont, string text, Vector2 position, Color? color = null, int priority = 50, TextDrawCall.Alignment alignment = TextDrawCall.Alignment.Center)
+        void INewDrawCall.Text(SpriteFont spriteFont, string text, Vector2 position, Color? color, int priority, TextDrawCall.Alignment alignment)
         {
             _drawQueue.Add(new TextDrawCall(spriteFont, text, position, color, priority, alignment));
         }
@@ -107,6 +106,8 @@ namespace GYARTE.manager
             if (PostDrawExecutions != null)
                 foreach (var i in PostDrawExecutions)
                     i.Invoke();
+
+            
 
             _manager.SpriteBatch.End();
             _manager.GraphicsDevice.SetRenderTarget(null);

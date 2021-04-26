@@ -1,2 +1,316 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram /> 
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GYARTE.gameObjects.entity.enemy.Enemy" Collapsed="true">
+    <Position X="12" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\game_object\entity\enemy\Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.gameObjects.entity.enemy.Goblin" Collapsed="true">
+    <Position X="10.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\game_object\entity\enemy\Enemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.gameObjects.entity.enemy.Floater" Collapsed="true">
+    <Position X="13" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAAAAAIAAIAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>src\game_object\entity\enemy\Floater.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.gameObjects.entity.Entity" Collapsed="true">
+    <Position X="12" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAQAAAAkAAACAAAAADAAAAAAAAIAAAAAAEAAA=</HashCode>
+      <FileName>src\game_object\entity\Entity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.gameObjects.entity.LivingEntity" Collapsed="true">
+    <Position X="13" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAQIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\game_object\entity\Entity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.gameObjects.entity.StaticItem" Collapsed="true">
+    <Position X="9.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAACAAAAAAgAAAAAACAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\game_object\entity\Item.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GYARTE.gameObjects.entity.DynamicItem" Collapsed="true">
+    <Position X="9.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAACAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\game_object\entity\Item.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GYARTE.gameObjects.entity.Player" Collapsed="true">
+    <Position X="15.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAQAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>src\game_object\entity\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.gameObjects.platform.Platform" Collapsed="true">
+    <Position X="14.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAgAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>src\game_object\platform\Platfrom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.gameObjects.GameObject" Collapsed="true">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAABAAEAgAgAAACAEAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>src\game_object\GameObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.main.gameComponents.GameComponents" Collapsed="true">
+    <Position X="24" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAQQIAgAgAAAAUCgAAgAgAgQAAIAAAIAY=</HashCode>
+      <FileName>src\main\gamecomponents\GC.Components.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.main.Game1" Collapsed="true">
+    <Position X="22.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAAAAAAwAAAAAAAAAACAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>src\main\Game1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.main.Program" Collapsed="true">
+    <Position X="22.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>src\main\Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.manager.Animator" Collapsed="true">
+    <Position X="22.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAgAAAAKEAAIAAA=</HashCode>
+      <FileName>src\manager\AnimationManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.manager.CullingManager" Collapsed="true">
+    <Position X="24" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>src\manager\CullingManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.manager.DrawManager" BaseTypeListCollapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAAAAAACAAAMAAAAAQAQAAEAAAAQAA=</HashCode>
+      <FileName>src\manager\DrawManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="GYARTE.manager.DrawQueue">
+    <Position X="29.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>src\manager\DrawManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.manager.DrawCall" Collapsed="true">
+    <Position X="4.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAkAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\manager\DrawManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.manager.SpriteDrawCall" Collapsed="true">
+    <Position X="2.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAQgIQAAQAgAAAAABAAAAAAAAAAAAAAAAQCA=</HashCode>
+      <FileName>src\manager\DrawManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.manager.TextDrawCall" Collapsed="true">
+    <Position X="4.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAgAAABAAAAAAAQAIAAAAAAAAAAA=</HashCode>
+      <FileName>src\manager\DrawManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.manager.LevelManager" Collapsed="true">
+    <Position X="27.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABwAAAAAAAAAAAAAAAIAAAAEAEQEAAAAAAAAAAAMAAA=</HashCode>
+      <FileName>src\manager\LevelManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.manager.MapManager" Collapsed="true">
+    <Position X="22.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>src\manager\MapManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.manager.SettingsManager" Collapsed="true">
+    <Position X="24" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAgAAAAAAABAAAAAgAAIAAAAAAAAAA=</HashCode>
+      <FileName>src\manager\SettingsManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.manager.WindowManager" Collapsed="true">
+    <Position X="25.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAgAAAAAACAAAAAAQAAAAAAQAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>src\manager\WindowManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MonoManager.InputManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="25.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAIAAAAAQACAAAEAgAAAIQAAAAAgAAAgAEIAAAA=</HashCode>
+      <FileName>src\manager\InputManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.219" />
+  </Class>
+  <Class Name="MonoManager.MenuManager" Collapsed="true">
+    <Position X="27.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAEAAAAAAAAAAAAAABAAAAAAACACAAI=</HashCode>
+      <FileName>src\manager\MenuManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.menu.Menu" Collapsed="true">
+    <Position X="24" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAhAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\menu\Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.menu.MenuItem" Collapsed="true">
+    <Position X="25.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQCAAAAAAAAAEAAQAAAAAA=</HashCode>
+      <FileName>src\menu\Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GYARTE.misc.Shot" Collapsed="true">
+    <Position X="16.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAAACAAAAAAgAAAEAACAAAUAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>src\misc\General.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="GYARTE.Level" Collapsed="true">
+    <Position X="24" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAEAAEAACQAAAAAAAAA=</HashCode>
+      <FileName>src\level\Level.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="GYARTE.manager.Settings" Collapsed="true">
+    <Position X="22.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAQAAEAAAAAAABAAAAAAAIAAAAAAAwAAAg=</HashCode>
+      <FileName>src\manager\SettingsManager.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="GYARTE.manager.WindowConfiguration" Collapsed="true">
+    <Position X="24" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAgAAAAAACAAAAAAQAAAAAAQAAAAIAAAAAAACAAAA=</HashCode>
+      <FileName>src\manager\WindowManager.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="GYARTE.misc.EnemyTemplate" Collapsed="true">
+    <Position X="22.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAQAAAAEAAAAACAAQBQAAAAAAAAAIAAAQACAA=</HashCode>
+      <FileName>src\misc\General.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="GYARTE.misc.Line" Collapsed="true">
+    <Position X="25.75" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAQAAAAAAAAAEAAAAAAAAAAAAAACAAAIg=</HashCode>
+      <FileName>src\misc\Line.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="GYARTE.gameObjects.entity.IItem" Collapsed="true">
+    <Position X="22.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAAAAACAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\game_object\entity\Item.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GYARTE.manager.NewDrawCall" Collapsed="true">
+    <Position X="27.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAACAAAAAA=</HashCode>
+      <FileName>src\manager\DrawManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MonoManager.IKeyboard" Collapsed="true">
+    <Position X="24" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\manager\InputManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="MonoManager.IMouse" Collapsed="true">
+    <Position X="25.75" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAgAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\manager\InputManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="GYARTE.main.gameComponents.GameState" Collapsed="true">
+    <Position X="25.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAAAQAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>src\main\gamecomponents\GC.Components.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MonoManager.Buttons" Collapsed="true">
+    <Position X="22.25" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\manager\InputManager.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GYARTE.misc.CoordinateAxis" Collapsed="true">
+    <Position X="24" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>src\misc\Line.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="GYARTE.gameObjects.entity.ItemExecution" Collapsed="true">
+    <Position X="25.75" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\game_object\entity\Item.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="GYARTE.manager.GetSubSprite" Collapsed="true">
+    <Position X="24" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\manager\AnimationManager.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="GYARTE.misc.Execution" Collapsed="true">
+    <Position X="22.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\misc\General.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

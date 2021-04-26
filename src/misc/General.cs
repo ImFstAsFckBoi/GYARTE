@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections;
+﻿using System.IO;
+using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using GYARTE.gameObjects;
+using Microsoft.Xna.Framework.Content;
 using GYARTE.gameObjects.entity;
+using GYARTE.gameObjects;
 using GYARTE.main.gameComponents;
-using GYARTE.manager;
-using GameObject = GYARTE.gameObjects.GameObject;
+
 
 namespace GYARTE.misc
-{    
+{
     public delegate void Execution();
     
     public class Shot : GameObject
@@ -32,11 +33,6 @@ namespace GYARTE.misc
             double alpha = Math.Atan2(Position.X - target.Position.X, Position.Y - target.Position.Y) + Math.PI;
             _vector = new Vector2((float) Math.Sin(alpha), (float) Math.Cos(alpha));
         }
-
-        public override void Draw()
-        {
-            GameComponents.DrawManager.NewDrawCall.Sprite(Position, Sprite, priority: 50);
-        }
         
         public void Update(GameTime gameTime)
         {
@@ -53,9 +49,60 @@ namespace GYARTE.misc
 
         public bool HitScan()
         {
-            if (!Rect.Intersects(_target.Rect)) return false;
+            if (!Hitbox.Intersects(_target.Hitbox)) return false;
             return true;
         } 
         
+    }
+    public struct EnemyTemplate
+    {
+        public string Name;
+        public string Symbol;
+        public Vector2 SpriteSize;
+        public float Speed;
+        public int HP;
+        public bool Animator;
+        public bool IsAffectedByGravity;
+        public bool IsAffectedByGravityDirection;
+        public Texture2D Texture;
+
+        public EnemyTemplate(string manifestCode, ContentManager contentManager)
+        {
+            string[] args = manifestCode.Split('.');
+
+            Name = args[0];
+            Symbol = args[1];
+            string file_path = args[2];
+            Texture = contentManager.Load<Texture2D>($@"./assets/img/{file_path}");
+            int x = Int32.Parse(args[3]);
+            int y = Int32.Parse(args[4]);
+            SpriteSize = new Vector2(x == 0? Texture.Width : x, y == 0? Texture.Height : y);
+            Speed = Single.Parse(args[5]);
+            HP = Int32.Parse(args[6]);
+            Animator = args[7] == "1";
+
+            if (Animator && (x == 0 || y == 0))
+                throw new ArgumentException("Sprite dimensions must be defined if Animator is enabled 🤬");
+
+            IsAffectedByGravity = args[8] == "1";
+            IsAffectedByGravityDirection = args[9] == "1";
+        }
+
+        public static List<EnemyTemplate> LoadManifest(ContentManager contentManager, string manifestFilePath = @"./enemy.manifest")
+        {
+            StreamReader SR = new StreamReader(manifestFilePath);
+
+            List<EnemyTemplate> list = new List<EnemyTemplate>();
+ 
+            string line;
+
+            while ((line = SR.ReadLine()) != null)
+            {
+                if (line.StartsWith('#')) continue;
+                list.Add(new EnemyTemplate(line, contentManager));
+            }
+            SR.Close();
+            return list;
+        }
     }
 }

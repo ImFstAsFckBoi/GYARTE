@@ -10,7 +10,7 @@ namespace GYARTE.gameObjects
         public Vector2 SpriteSize; 
         public float Width => SpriteSize.X;
         public float Height => SpriteSize.Y;
-        public Rectangle Rect => new Rectangle(
+        public Rectangle Hitbox => new Rectangle(
             (int) Position.X,
             (int) Position.Y,
             (int) Width,

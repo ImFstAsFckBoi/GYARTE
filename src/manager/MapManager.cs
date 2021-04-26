@@ -11,8 +11,8 @@ namespace GYARTE.manager
         
         public static void Draw(Vector2 currentLvlID)
         {
-            return;
-            //1238
+            return; //jag gav up på denhär
+            //1238  
             //string ex = "0.0.A.0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789";
 
             GameComponents.DrawManager.NewDrawCall.Sprite(new Vector2(1110, 10), GameComponents.SpriteTable["MapBack"], scale: new Vector2(3, 3), priority: -10);

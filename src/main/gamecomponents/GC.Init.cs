@@ -6,9 +6,10 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using GYARTE.manager;
-using GYARTE.gameObjects.entity.enemy;
+using MonoManager;
 using GYARTE.gameObjects.entity;
 using GYARTE.menu;
+using GYARTE.misc;
 namespace GYARTE.main.gameComponents
 {
     public static partial class GameComponents
@@ -19,10 +20,11 @@ namespace GYARTE.main.gameComponents
             GameState = new GameState();
 
             LoadContent(content);
+            
+            InputManager = new InputManager();
             MenuManager = new MenuManager();
             
-            MenuManager.AddMenu(
-                new Menu("PAUSE", new List<MenuItem>()
+            MenuManager.AddMenu(new Menu("PAUSE", new List<MenuItem>()
                 {
                     {new MenuItem("RESUME", () => 
                         {
@@ -57,21 +59,18 @@ namespace GYARTE.main.gameComponents
                      Environment.Exit(0);
                  })}
             }),
-            GameState.MainMenu);
+                GameState.MainMenu);
             
 
-            LevelManager = new LevelManager((Texture2D)SpriteTable["PlatformSprite"], Vector2.Zero);
+            LevelManager = new LevelManager((Texture2D)SpriteTable["PlatformSprite"], EnemyTemplate.LoadManifest(content), Vector2.Zero);
 
             Settings = SettingsManager.LoadSettings();
             WindowConfig = WindowManager.WindowInit(Settings, gManager, gDevice);
 
             DrawManager = new DrawManager(gDevice, WindowConfig);
 
-            Player1 = new Player(SpriteTable["EnemySprite"], new Vector2(600, 400), Settings.PlayerSpeed, 100,  true, true, new Vector2(80, 116), true);
-            for (int i = 0; i < 10; i++)
-            {
-                Enemies.Add(new Goblin(SpriteTable["RedSus"], new Vector2(600 + i*10, 200), Settings.EnemySpeed, 100, true, false, new Vector2(94, 122), true));
-            }
+            Player1 = new Player(SpriteTable["PlayerSprite"], new Vector2(600, 400), Settings.PlayerSpeed, 100,  true, true, new Vector2(60, 99), true);
+        
                
 
             //Enemy2 = new Floater(SpriteTable["EyeSprite"], new Vector2(200, 200), 0, 100, SpriteTable["ShotSprite"]);
@@ -113,7 +112,8 @@ namespace GYARTE.main.gameComponents
                 {"MainMenuBackground", content.Load<Texture2D>(@$"{IMGDIR}/mainmenu")},
                 {"RedSus", content.Load<Texture2D>(@$"{IMGDIR}/amogus_sprietsheet")},
                 {"MapBack", content.Load<Texture2D>(@$"{IMGDIR}/mapback")},
-                {"MapSheet", content.Load<Texture2D>(@$"{IMGDIR}/mapspritesheet")}
+                {"MapSheet", content.Load<Texture2D>(@$"{IMGDIR}/mapspritesheet")},
+                {"Beam", content.Load<Texture2D>(@$"{IMGDIR}/beam")}
             };
 
             FontTable = new Dictionary<string, SpriteFont>()

@@ -12,12 +12,11 @@ namespace GYARTE.manager
         private int _walkCycleCounter = 0;
         private Vector2 _direction => _entity.Direction;
         private Texture2D _spriteSheet;
-        private Vector2 _spriteSize;
-        public Animator(Entity entity, Texture2D spriteSheet, Vector2 spriteSize)
+        private Vector2 _spriteSize => _entity.SpriteSize;
+        public Animator(Entity entity, Texture2D spriteSheet)
         {
             _entity = entity;
             _spriteSheet = spriteSheet;
-            _spriteSize = spriteSize;
         }
 
         private Rectangle GetSubSpriteRect()
@@ -26,7 +25,7 @@ namespace GYARTE.manager
             int y = (int) _direction.Y == 1 ? 0 : _spriteSheet.Height / 2;                      // Inge switch case eller if bs
             int w = (int) _spriteSize.X;
             int h = (int) _spriteSize.Y;
-
+            
 
 
             if (_entity.Velocity.X != 0 && _entity.Velocity.Y == 0)

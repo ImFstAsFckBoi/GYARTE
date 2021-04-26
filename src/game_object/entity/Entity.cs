@@ -10,7 +10,7 @@ using GYARTE.manager;
 
 namespace GYARTE.gameObjects.entity
 {
-    public class Entity : GameObject
+    public abstract class Entity : GameObject
     {
         public Vector2 Velocity;
         public bool IsAffectedByGravity;
@@ -39,7 +39,7 @@ namespace GYARTE.gameObjects.entity
                 }
                 else 
                 {
-                    _animator = new Animator(this, Sprite, spriteSize.Value);
+                    _animator = new Animator(this, Sprite);
                 }
             }
         }
@@ -53,7 +53,11 @@ namespace GYARTE.gameObjects.entity
             base.Update();
         }
         
-        public virtual void Update(float g, int gDirection, GameTime gameTime, IEnumerable<Platform> platforms, GameObject target)
+        public virtual void Update(
+            float g, int gDirection, 
+            GameTime gameTime, 
+            IEnumerable<Platform> platforms, 
+            GameObject target)
         {
             Direction.Y = IsAffectedByGravityDirection ? gDirection : 1;
 
@@ -62,12 +66,16 @@ namespace GYARTE.gameObjects.entity
             base.Update();
         }
         
-        private void MoveAndCheckPlatforms(float g, int gDirection, GameTime gameTime, IEnumerable<Platform> platforms, GameObject? target = null)
+        private void MoveAndCheckPlatforms(
+            float g, int gDirection, 
+            GameTime gameTime, 
+            IEnumerable<Platform> platforms, 
+            GameObject? target = null)
         {
             if (target != null)
             {
-                Velocity.X = Speed * (!(new Rectangle((int)Position.X, 0, Rect.Width, GameComponents.WindowConfig.WindowHeight)
-                    .Intersects(target.Rect)) ?
+                Velocity.X = Speed * (!(new Rectangle((int)Position.X, 0, Hitbox.Width, 1280)
+                    .Intersects(target.Hitbox)) ?
                     target.Position.X < Position.X ?
                         -1
                         : 1
@@ -93,23 +101,20 @@ namespace GYARTE.gameObjects.entity
             {
                 CheckStandPlatformY(p);
             }
-
-
-
         }
         
         protected virtual void CheckStandPlatformX(Platform platform)
         {
-            if (Rect.Intersects(platform.Rect))
+            if (Hitbox.Intersects(platform.Hitbox))
             {
-                if (Position.X < platform.Rect.Center.X)
+                if (Position.X < platform.Hitbox.Center.X)
                 {
-                    Position.X = platform.Rect.X - Width;
+                    Position.X = platform.Hitbox.X - Width;
                     Velocity.X = 0;
                 }
-                else if (Position.X > platform.Rect.Center.X)
+                else if (Position.X > platform.Hitbox.Center.X)
                 {
-                    Position.X = platform.Rect.Right;
+                    Position.X = platform.Hitbox.Right;
                     Velocity.X = 0;
                 }
             }
@@ -118,16 +123,16 @@ namespace GYARTE.gameObjects.entity
         
         protected virtual void CheckStandPlatformY(Platform platform)
         {
-            if (Rect.Intersects(platform.Rect))
+            if (Hitbox.Intersects(platform.Hitbox))
             {
-                if (Position.Y < platform.Rect.Center.Y)
+                if (Position.Y < platform.Hitbox.Center.Y)
                 {
-                    Position.Y = platform.Rect.Y - Height;
+                    Position.Y = platform.Hitbox.Y - Height;
                     Velocity.Y = 0;
                 }
-                else if (Position.Y > platform.Rect.Center.Y)
+                else if (Position.Y > platform.Hitbox.Center.Y)
                 {
-                    Position.Y = platform.Rect.Bottom;
+                    Position.Y = platform.Hitbox.Bottom;
                     Velocity.Y = 0;
                 }
             }
@@ -145,14 +150,14 @@ namespace GYARTE.gameObjects.entity
 
     public abstract class LivingEntity : Entity
     {
-        public float Hp;
+        public float HP;
 
         protected LivingEntity(Texture2D sprite, Vector2 startPosition, float startHp, 
         float speed, bool isAffectedByGravity = true, bool isAffectedByGravityDirection = false, 
         Vector2? spriteSize = null, bool animator = false) 
         : base(sprite, startPosition, speed, isAffectedByGravity, isAffectedByGravityDirection, spriteSize, animator)
         {
-            Hp = startHp;
+            HP = startHp;
         }
 
         public virtual void Update(float g, int gDirection, GameTime gameTime, IEnumerable<Platform> platforms, LivingEntity target)

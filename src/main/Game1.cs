@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using GYARTE.main.gameComponents;
+using GYARTE.misc;
 namespace GYARTE.main
 {
     public class Game1 : Game
@@ -8,13 +9,14 @@ namespace GYARTE.main
         
         public Game1()
         {
+
             Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
-        
         protected override void Initialize()
         {
+           
             GameComponents.Initialize(GraphicsDevice, Graphics, Content);
 
             base.Initialize();
@@ -55,6 +57,8 @@ namespace GYARTE.main
 
         protected override void Draw(GameTime gameTime)
         {
+
+            
             GameComponents.DrawManager.DrawQueuedCalls();
 
             base.Draw(gameTime);

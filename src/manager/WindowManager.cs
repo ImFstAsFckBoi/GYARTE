@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GYARTE.manager {
+namespace GYARTE.manager 
+{
     public static class WindowManager
     {
         private  static RenderTarget2D TargetResolution;

@@ -1,10 +1,8 @@
-﻿using System;
-using GYARTE.main.gameComponents;
-using System.Collections.Generic;
-using GYARTE.manager;
+﻿using GYARTE.main.gameComponents;
 using Microsoft.Xna.Framework.Input;
+using GYARTE.menu;
 
-namespace GYARTE.menu
+namespace MonoManager
 {
     public class MenuManager
     {
@@ -30,7 +28,7 @@ namespace GYARTE.menu
         {
 
             _currentMenu.Draw(Selected);
-            InputManager.WhenPressedOnce(Keys.Down, () => 
+            GameComponents.InputManager.KeyboardIO.WhenPressedOnce(Keys.Down, () => 
             {
                 if (Selected + 1 == _currentMenu.MenuItems.Count) 
                 {
@@ -40,7 +38,7 @@ namespace GYARTE.menu
                 Selected++; 
             });
             
-            InputManager.WhenPressedOnce(Keys.Up, () => 
+            GameComponents.InputManager.KeyboardIO.WhenPressedOnce(Keys.Up, () => 
             {
                 if (Selected == 0)
                 {
@@ -50,7 +48,7 @@ namespace GYARTE.menu
                 Selected--;
             });
 
-            InputManager.WhenPressedOnce(Keys.Enter, () =>
+            GameComponents.InputManager.KeyboardIO.WhenPressedOnce(Keys.Enter, () =>
             {
                 _currentMenu.MenuItems[Selected].Select();
             });
